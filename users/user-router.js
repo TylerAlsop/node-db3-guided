@@ -1,5 +1,5 @@
 const express = require("express")
-const postRouter = require("../posts/post-router")
+const postRouter = require("../posts/posts-router")
 const db = require("../data/config")
 
 const router = express.Router()
