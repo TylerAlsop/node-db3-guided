@@ -1,7 +1,13 @@
 const express = require("express")
+const postRouter = require("../posts/posts-router")
 const db = require("../data/config")
 
 const router = express.Router()
+
+router.use("/:id/posts", postRouter)
+
+
+/////////////// GET ///////////////
 
 router.get("/", async (req, res, next) => {
 	try {
@@ -11,6 +17,7 @@ router.get("/", async (req, res, next) => {
 	}
 })
 
+//// GET by id ////
 router.get("/:id", validateUserId(), async (req, res, next) => {
 	try {
 		res.json(req.user)
@@ -18,6 +25,9 @@ router.get("/:id", validateUserId(), async (req, res, next) => {
 		next(err)
 	}
 })
+
+
+/////////////// POST ///////////////
 
 router.post("/", async (req, res, next) => {
 	try {
@@ -29,6 +39,9 @@ router.post("/", async (req, res, next) => {
 		next(err)
 	}
 })
+
+
+/////////////// PUT ///////////////
 
 router.put("/:id", validateUserId(), async (req, res, next) => {
 	try {
@@ -42,6 +55,9 @@ router.put("/:id", validateUserId(), async (req, res, next) => {
 	}
 })
 
+
+/////////////// DELETE ///////////////
+
 router.delete("/:id", validateUserId(), async (req, res, next) => {
 	try {
 		const { id } = req.params
@@ -52,6 +68,10 @@ router.delete("/:id", validateUserId(), async (req, res, next) => {
 		next(err)
 	}
 })
+
+
+
+/////////////// Custom Middleware ///////////////
 
 function validateUserId() {
 	return async (req, res, next) => {
